@@ -20,7 +20,7 @@ Proyecto de Extraccion de informacion sobre candidatos a las elecciones generale
 - [x] Tablas de datos crudos, transformados y validados.
 - [x] Scrapping a pagina de publica de recompensas PNP (https://recompensas.pe/requisitoriados).
 - [x] Scrapping a pagina de publica de SUNAT (https://e-consultaruc.sunat.gob.pe/cl-ti-itmrconsruc/FrameCriterioBusquedaWeb.jsp).
-- [x] Scrapping a pagina de publica de REINFO (https://pad.minem.gob.pe/REINFO_WEB/Index.aspx).
+- [ ] Scrapping a pagina de publica de REINFO (https://pad.minem.gob.pe/REINFO_WEB/Index.aspx).
 
 ## Base de Datos:
 
