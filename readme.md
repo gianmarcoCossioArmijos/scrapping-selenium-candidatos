@@ -16,7 +16,7 @@ Proyecto de Extraccion de informacion sobre candidatos a las elecciones generale
 
 - En excel se convirtio la data extraida de formato JSON a una tabla de Excel. Con esta tabla se aplico una formula de concatenacion para generar un query SQL de insercion en las tablas 'partido','presidente','parlamentario' y otras.
 
-![Description](images/jne-parlamento-andino-excel-covert-data.png)
+![Description](images/jne-parlamento-andino-excel-covert-data.jpeg)
 
 - Se creo un proyecto Python con conexion a base de datos Potgres. Desde el proyecto se consulto los candidatos registrados en la base de datos y mediante scrapping con selenium se valido uno a uno si cuentan con ordenes de captura con recompensa y deudas coactivas en sunat. En caso se encuentre algun candidato con ordenes de captura con recompensa y deudas coactivas se registra en base de datos.
 
