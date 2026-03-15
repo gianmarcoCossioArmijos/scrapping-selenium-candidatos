@@ -4,15 +4,23 @@ Proyecto de Extraccion de informacion sobre candidatos a las elecciones generale
 
 `Nota: el proyecto continua en mejora, se plantea implementar validacion de candidatos con REINFO`
 
+![Description](images/scrapping-most-wanted.png)
+
 ## Procesos:
 
 - En este proyecto se extrajo manualmente informacion sobre candidatos a la presidencia, senado, parlamento andino y otros, desde la pagina oficial del Jurado Nacional de Elecciones (JNE). La extraccion de la data se logro atrave de la inspeccion de la pagina y la recuperacion de la informacion devuelta en la respuesta del navegador en formato JSON.
+
+![Description](images/jne-get-data.png)
 
 - La data previamente extraida necesitara ser insertada en una base de datos, asi que se creo la base de datos 'most-wanted' y la tablas 'partido','presidente','parlamentario', 'buscado' y otras.
 
 - En excel se convirtio la data extraida de formato JSON a una tabla de Excel. Con esta tabla se aplico una formula de concatenacion para generar un query SQL de insercion en las tablas 'partido','presidente','parlamentario' y otras.
 
+![Description](images/jne-parlamento-andino-excel-covert-data.png)
+
 - Se creo un proyecto Python con conexion a base de datos Potgres. Desde el proyecto se consulto los candidatos registrados en la base de datos y mediante scrapping con selenium se valido uno a uno si cuentan con ordenes de captura con recompensa y deudas coactivas en sunat. En caso se encuentre algun candidato con ordenes de captura con recompensa y deudas coactivas se registra en base de datos.
+
+![Description](images/jne-search-most-wanted.png)
 
 ## Requerimientos:
 
