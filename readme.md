@@ -64,7 +64,7 @@ CREATE TABLE presidente (
 
 CREATE TABLE buscado (
     id_buscado SERIAL PRIMARY KEY,
-    nombres VARCHAR(250) NOT NULL,
+    nombres VARCHAR(250) UNIQUE NOT NULL,
 	estado VARCHAR(250) NOT NULL,
 	lugar_rq VARCHAR(250) NOT NULL,
 	delito VARCHAR(250) NOT NULL,

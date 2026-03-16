@@ -22,17 +22,17 @@ QUERY_PARLAMENTARIO_SUNAT= """
 
 def main():
     conexion = obtener_conexion()
-    #print("******************** BUSCAR PRESIDENTES EN MAS BUSCADOS DE LA PNP ********************")
-    #obtener_data(QUERY_PRESIDENTE_PNP, conexion)
-    #print("******************** FIN BUSQUEDA PRESIDENTES EN MAS BUSCADOS DE LA PNP ********************")
+    print("******************** BUSCAR PRESIDENTES EN MAS BUSCADOS DE LA PNP ********************")
+    obtener_data(QUERY_PRESIDENTE_PNP, conexion)
+    print("******************** FIN BUSQUEDA PRESIDENTES EN MAS BUSCADOS DE LA PNP ********************")
 
     #print("******************** BUSCAR PARLAMENTARIOS EN MAS BUSCADOS DE LA PNP ********************")
     #obtener_data(QUERY_PARLAMENTARIO_PNP, conexion)
     #print("******************** FIN BUSQUEDA PARLAMENTARIOS EN MAS BUSCADOS DE LA PNP ********************")
 
-    print("******************** BUSCAR PARLAMENTARIOS EN SUNAT ********************")
-    obtener_data_sunat(QUERY_PARLAMENTARIO_SUNAT, conexion)
-    print("******************** FIN BUSQUEDA PARLAMENTARIOS EN SUNAT ********************")
+    #print("******************** BUSCAR PARLAMENTARIOS EN SUNAT ********************")
+    #obtener_data_sunat(QUERY_PARLAMENTARIO_SUNAT, conexion)
+    #print("******************** FIN BUSQUEDA PARLAMENTARIOS EN SUNAT ********************")
     conexion.close()
 
 

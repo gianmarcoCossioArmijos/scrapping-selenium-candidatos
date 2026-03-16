@@ -63,7 +63,7 @@ def registrar_data_encontrada(nombre_completo, cursor, driver):
     recompensa = (encontrado5.text).upper()
 
     # Ejecutar insert de registro encontrado
-    query = "INSERT INTO buscado (nombres,estado,lugar_rq,delito,recompensa) VALUES (%s,%s,%s,%s,%s)"
+    query = "INSERT INTO buscado (nombres,estado,lugar_rq,delito,recompensa) VALUES (%s,%s,%s,%s,%s) ON CONFLICT (nombres) DO NOTHING;"
     cursor.execute(query, (nombre_completo,estado,lugar_rq,delito,recompensa))
     print("Registro encontrado insertado en la base de datos...")
 
