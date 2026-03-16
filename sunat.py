@@ -6,7 +6,38 @@ from selenium.common.exceptions import NoSuchElementException
 
 
 
-def extraer_data_sunat(cursor, driver):
+def registrar_deuda_coactiva(dni, cursor, driver):
+    try:
+        driver.implicitly_wait(35)
+        deuda_coactiva = driver.find_element(By.XPATH, "/html/body/div/div[3]/div[2]/div[2]/div/div")
+    except NoSuchElementException:
+        deuda_coactiva = False
+
+    if deuda_coactiva != False:
+        print("Extrayendo deuda coactiva")
+        # Extraer datos de deuda coactiva
+        dni_deudor = dni
+        monto_deuda = (driver.find_element(By.XPATH, "/html/body/div/div[3]/div[2]/div[2]/div/div/table/tbody/tr/td[1]").text).upper()
+        periodo_tributario = (driver.find_element(By.XPATH, "/html/body/div/div[3]/div[2]/div[2]/div/div/table/tbody/tr/td[2]").text).upper()
+        inicio_cobranza = (driver.find_element(By.XPATH, "/html/body/div/div[3]/div[2]/div[2]/div/div/table/tbody/tr/td[3]").text).upper()
+        entidad_deuda = (driver.find_element(By.XPATH, "/html/body/div/div[3]/div[2]/div[2]/div/div/table/tbody/tr/td[4]").text).upper()
+
+        # Ejecutar insert de deuda coactiva
+        query = "INSERT INTO deuda (dni_deudor,monto_deuda,periodo_tributario,inicio_cobranza,entidad_deuda) VALUES (%s,%s,%s,%s,%s);"
+        cursor.execute(query, (dni_deudor,monto_deuda,periodo_tributario,inicio_cobranza,entidad_deuda))
+        print("Deuda coactiva insertada en la base de datos...")
+
+        # salir de detale de deuda coactiva
+        boton_coactiva_regresar = driver.find_element(By.XPATH, "/html/body/div/div[2]/div/div[2]/button")
+        driver.execute_script("arguments[0].click();", boton_coactiva_regresar)
+    else:
+        # salir de detale de deuda coactiva
+        boton_coactiva_regresar = driver.find_element(By.XPATH, "/html/body/div/div[2]/div/div[2]/button")
+        driver.execute_script("arguments[0].click();", boton_coactiva_regresar)
+
+
+
+def extraer_data_sunat(dni, cursor, driver):
     # Ingresar al detalle del registro
     card = driver.find_element(By.XPATH, "/html/body/div/div[2]/div/div[3]/div[2]/a")
     driver.execute_script("arguments[0].click();", card)
@@ -27,9 +58,10 @@ def extraer_data_sunat(cursor, driver):
 
     if info_coactiva != False:
         print("Registro con deuda coactiva encontrado")
-        boton_coactiva_regresar = driver.find_element(By.XPATH, "/html/body/div/div[2]/div/div[2]/button")
-        driver.execute_script("arguments[0].click();", boton_coactiva_regresar)
+        # Llamar funcion para registrar deuda coactiva en base de datos
+        registrar_deuda_coactiva(dni, cursor, driver)
 
+        # Volver desde el detalle de deuda coactiva hacia nueva consulta
         driver.implicitly_wait(35)
         nueva_consulta = driver.find_element(By.XPATH, "/html/body/div/div[2]/div/div[4]/button")
         driver.execute_script("arguments[0].click();", nueva_consulta)
@@ -45,7 +77,7 @@ def extraer_data_sunat(cursor, driver):
     
 
 
-def validar_data_sunat(cursor, driver):
+def validar_data_sunat(dni, cursor, driver):
     # Implementar lógica de validación de datos
     driver.implicitly_wait(30)
     try:
@@ -56,7 +88,7 @@ def validar_data_sunat(cursor, driver):
 
     if card != False:
         print("Registro en sunat encontrado")
-        extraer_data_sunat(cursor, driver)
+        extraer_data_sunat(dni, cursor, driver)
     else:
         print("Registro en sunat no encontrado")
         boton_nueva_consulta = driver.find_element(By.ID, "btnNuevaConsulta")
@@ -84,7 +116,7 @@ def buscar_data(dni, cursor, driver):
     driver.execute_script("arguments[0].click();", boton_busqueda)
 
     # Llamar funcion de validacion de consulta
-    validar_data_sunat(cursor, driver)
+    validar_data_sunat(dni, cursor, driver)
     print("****************************************")
 
 

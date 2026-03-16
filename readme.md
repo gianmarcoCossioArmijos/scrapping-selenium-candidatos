@@ -70,6 +70,15 @@ CREATE TABLE buscado (
 	delito VARCHAR(250) NOT NULL,
 	recompensa VARCHAR(100) NOT NULL
 );
+
+CREATE TABLE deuda (
+    id_deudor SERIAL PRIMARY KEY,
+	dni_deudor INT NOT NULL,
+    monto_deuda VARCHAR(250) NOT NULL,
+	periodo_tributario VARCHAR(250) NOT NULL,
+	inicio_cobranza VARCHAR(250) NOT NULL,
+	entidad_deuda VARCHAR(250) NOT NULL
+);
 ```
 
 ## Tecnologias:
