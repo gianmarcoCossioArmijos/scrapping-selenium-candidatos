@@ -73,8 +73,7 @@ def validar_data(nombre_completo, cursor, driver):
     print("Buscando registro...")
     # Localizaar elemento de respuesta a busqueda
     try:
-        no_encontrado = driver.find_element(
-            By.XPATH, "/html/body/div/app-root/app-base-layout/main/app-requisitoriados-list/div/div[2]/div/h1")
+        no_encontrado = driver.find_element(By.XPATH, "/html/body/div/app-root/app-base-layout/main/app-requisitoriados-list/div/div[2]/div/h1")
     except NoSuchElementException:
         no_encontrado = False
 
@@ -94,15 +93,13 @@ def buscar_data(nombre_completo, cursor, driver):
     # Localizar el campo de búsqueda por nombre completo y enviar el nombre a buscar
     driver.implicitly_wait(30)
     WebDriverWait(driver, 35).until(EC.presence_of_element_located((By.NAME, "nombreCompleto")))
-    driver.find_element(
-        By.XPATH, "/html/body/div/app-root/app-base-layout/main/app-requisitoriados-search/div/div[2]/div/form/div[1]/div[2]/input").send_keys(nombre_completo)
+    driver.find_element(By.XPATH, "/html/body/div/app-root/app-base-layout/main/app-requisitoriados-search/div/div[2]/div/form/div[1]/div[2]/input").send_keys(nombre_completo)
 
     # Hacer scroll para que el botón de búsqueda sea visible
     # Localizar el botón de búsqueda y dar clic
     driver.implicitly_wait(30)
     driver.execute_script("window.scrollBy(0, 300);")
-    boton = driver.find_element(
-        By.XPATH, "/html/body/div/app-root/app-base-layout/main/app-requisitoriados-search/div/div[2]/div/form/div[1]/div[9]/button")
+    boton = driver.find_element(By.XPATH, "/html/body/div/app-root/app-base-layout/main/app-requisitoriados-search/div/div[2]/div/form/div[1]/div[9]/button")
     driver.execute_script("arguments[0].click();", boton)
 
     # Llamar funcion de validacion
