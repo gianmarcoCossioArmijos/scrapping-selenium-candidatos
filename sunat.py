@@ -23,7 +23,7 @@ def registrar_deuda_coactiva(dni, cursor, driver):
 
         if validar_tr_unico == False:
             # Extraer datos de deuda coactiva unica
-            monto_deuda_unica = (driver.find_element(By.XPATH, "/html/body/div/div[3]/div[2]/div[2]/div/div/table/tbody/tr/td[1]").text).upper()
+            monto_deuda_unica = float(driver.find_element(By.XPATH, "/html/body/div/div[3]/div[2]/div[2]/div/div/table/tbody/tr/td[1]").text)
             periodo_deuda_unica = (driver.find_element(By.XPATH, "/html/body/div/div[3]/div[2]/div[2]/div/div/table/tbody/tr/td[2]").text).upper()
             inicio_cobranza_deuda_unica = (driver.find_element(By.XPATH, "/html/body/div/div[3]/div[2]/div[2]/div/div/table/tbody/tr/td[3]").text).upper()
             entidad_deuda_unica = (driver.find_element(By.XPATH, "/html/body/div/div[3]/div[2]/div[2]/div/div/table/tbody/tr/td[4]").text).upper()
@@ -37,7 +37,7 @@ def registrar_deuda_coactiva(dni, cursor, driver):
             filas = len(driver.find_elements(By.TAG_NAME, "tr")) - 1
             for i in range(filas):
                 fila = i + 1
-                monto_deuda_unica = (driver.find_element(By.XPATH, f"/html/body/div/div[3]/div[2]/div[2]/div/div/table/tbody/tr[{fila}]/td[1]").text).upper()
+                monto_deuda_unica = float(driver.find_element(By.XPATH, f"/html/body/div/div[3]/div[2]/div[2]/div/div/table/tbody/tr[{fila}]/td[1]").text)
                 periodo_deuda_unica = (driver.find_element(By.XPATH, f"/html/body/div/div[3]/div[2]/div[2]/div/div/table/tbody/tr[{fila}]/td[2]").text).upper()
                 inicio_cobranza_deuda_unica = (driver.find_element(By.XPATH, f"/html/body/div/div[3]/div[2]/div[2]/div/div/table/tbody/tr[{fila}]/td[3]").text).upper()
                 entidad_deuda_unica = (driver.find_element(By.XPATH, f"/html/body/div/div[3]/div[2]/div[2]/div/div/table/tbody/tr[{fila}]/td[4]").text).upper()
@@ -113,12 +113,20 @@ def validar_data_sunat(dni, cursor, driver):
     # Validar si se encontro detalles en el card de deuda coactiva
     if card != False:
         print("Resultado de consulta RUC positivo")
+        # Extraer RUC de la empresa
+        ruc = driver.find_element(By.XPATH, "/html/body/div/div[2]/div/div[3]/div[2]/a/h4[1]").text
+        ruc_empresa = ruc[5:]
+        print(f"RUC de la empresa: {ruc_empresa}")
+
+        # Ejecutar insert de RUC de la empresa en la base de datos
+        query = "INSERT INTO empresa (ruc_empresa,dni_candidato) VALUES (%s,%s);"
+        cursor.execute(query, (ruc_empresa,dni))
+        print("RUC de candidato insertado en la base de datos...")
         extraer_data_sunat(dni, cursor, driver)
     else:
         # Regresar a nueva consulta
         print("Resultado de consulta RUC negativo")
-        boton_nueva_consulta = driver.find_element(By.XPATH, "/html/body/div/div[2]/div/div[2]/button")
-        driver.execute_script("arguments[0].click();", boton_nueva_consulta)
+        driver.back()
 
 
 

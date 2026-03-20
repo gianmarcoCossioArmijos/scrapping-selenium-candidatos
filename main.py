@@ -1,3 +1,4 @@
+from grafico import graficar
 from wanted import obtener_data
 from sunat import obtener_data_sunat
 from db import obtener_conexion
@@ -34,13 +35,18 @@ def main():
     #obtener_data(QUERY_PARLAMENTARIO_PNP, conexion)
     #print("******************** FIN BUSQUEDA PARLAMENTARIOS EN MAS BUSCADOS DE LA PNP ********************")
 
-    print("******************** BUSCAR PRESIDENTES EN SUNAT ********************")
-    obtener_data_sunat(QUERY_PRESIDENTE_SUNAT, conexion)
-    print("******************** FIN BUSQUEDA PRESIDENTES EN SUNAT ********************")
+    #print("******************** BUSCAR PRESIDENTES EN SUNAT ********************")
+    #obtener_data_sunat(QUERY_PRESIDENTE_SUNAT, conexion)
+    #print("******************** FIN BUSQUEDA PRESIDENTES EN SUNAT ********************")
 
     #print("******************** BUSCAR PARLAMENTARIOS EN SUNAT ********************")
     #obtener_data_sunat(QUERY_PARLAMENTARIO_SUNAT, conexion)
     #print("******************** FIN BUSQUEDA PARLAMENTARIOS EN SUNAT ********************")
+
+    print("******************** GRAFICAR DEUDAS ********************")
+    graficar(conexion)
+    print("******************** FIN GRAFICAR DEUDAS ********************")
+
     conexion.close()
 
 

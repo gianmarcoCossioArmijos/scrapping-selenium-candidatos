@@ -74,7 +74,7 @@ CREATE TABLE buscado (
 CREATE TABLE deuda (
     id_deudor SERIAL PRIMARY KEY,
 	dni_deudor INT NOT NULL,
-    monto_deuda VARCHAR(250) NOT NULL,
+    monto_deuda INT NOT NULL,
 	periodo_tributario VARCHAR(250) NOT NULL,
 	inicio_cobranza VARCHAR(250) NOT NULL,
 	entidad_deuda VARCHAR(250) NOT NULL
