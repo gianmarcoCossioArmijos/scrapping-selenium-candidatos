@@ -28,12 +28,11 @@ def graficar_deudas(cursor):
     deudas = df['deuda'].tolist()
     colores = ['orange', 'brown', 'green', 'pink', 'purple']
 
-    plt.rcParams.update({'font.size': 5})
-    plt.bar(nombres,deudas,width=0.8,label='Candidatos presidenciales con mayor deuda coactiva',edgecolor='gray',color=colores)
-    plt.ylabel('Monto de Deuda Coactiva',fontsize=10)
-    plt.xlabel('Candidatos',fontsize=10)
+    plt.rcParams.update({'font.size': 8}) 
+    plt.barh(nombres,deudas,label='Candidatos presidenciales con mayor deuda coactiva',edgecolor='gray',color=colores)
+    plt.xlabel('Monto de Deuda Coactiva',fontsize=10)
+    plt.ylabel('Candidatos',fontsize=10)
     plt.title('Deudas Coactivas de Candidatos Presidenciales',fontsize=16,fontname='Arial', fontweight='bold')
-    plt.xticks(rotation=45, ha='right')
     plt.legend()
     plt.show()
 
@@ -45,7 +44,7 @@ def extraer_buscados_db(cursor):
             SELECT	COALESCE(candidato_buscado, 0) AS buscado,
                     pp.partido_politico
             FROM partido pp
-            LEFT JOIN (SELECT COUNT(p.id_partido) AS candidato_buscado,id_partido
+            INNER JOIN (SELECT COUNT(p.id_partido) AS candidato_buscado,id_partido
                         FROM buscado b
                         INNER JOIN (SELECT 	id_partido,
                                             CONCAT(nombres,' ',paterno,' ',materno) AS nombre_completo
@@ -68,11 +67,11 @@ def graficar_buscados(cursor):
     buscados = df['buscado'].tolist()
     partidos = df['partido_politico'].tolist()
 
-    plt.rcParams.update({'font.size': 5})
-    plt.barh(partidos,buscados,label='Cantidad de candidatos con recompensa y buscados por la PNP',edgecolor='gray',color='orange')
-    plt.ylabel('Partidos Politicos',fontsize=10)
-    plt.xlabel('Cantidad de Candidatos Buscados',fontsize=10)
-    plt.title('Candidatos Presidenciales con Recompensa y Orden de Captura',fontsize=16,fontname='Arial', fontweight='bold')
+    plt.rcParams.update({'font.size': 12})
+    plt.bar(partidos,buscados,width=0.5,label='Cantidad de candidatos con recompensa y buscados por la PNP',edgecolor='gray',color='skyblue')
+    plt.ylabel('Cantidad de Candidatos Buscados',fontsize=10)
+    plt.xlabel('Partidos Politicos',fontsize=10)
+    plt.title('Candidatos con Recompensa por Orden de Captura',fontsize=16,fontname='Arial', fontweight='bold')
     plt.legend()
     plt.show()
 
